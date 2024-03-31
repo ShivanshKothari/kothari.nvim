@@ -1,2 +1,2 @@
-require("kotharig")
 print("Hello lua")
+require('kotharig')

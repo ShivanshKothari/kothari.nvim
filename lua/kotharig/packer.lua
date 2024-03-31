@@ -1,27 +1,43 @@
--- This file can be loaded by calling `lua require('plugins')` from your init.vim
+local function bootstrap_pckr()
+  local pckr_path = vim.fn.stdpath("data") .. "/pckr/pckr.nvim"
 
--- Only required if you have packer configured as `opt`
-vim.cmd [[packadd packer.nvim]]
+  if not vim.loop.fs_stat(pckr_path) then
+    vim.fn.system({
+      'git',
+      'clone',
+      "--filter=blob:none",
+      'https://github.com/lewis6991/pckr.nvim',
+      pckr_path
+    })
+  end
 
-return require('packer').startup(function(use)
-  -- Packer can manage itself
-  use 'wbthomason/packer.nvim'
+  vim.opt.rtp:prepend(pckr_path)
+end
+
+bootstrap_pckr()
+
+require('pckr').add{
+  'wbthomason/packer.nvim';
   
-  use({
+  {
 	'nvim-telescope/telescope.nvim', tag = '0.1.6',
 	-- or                            , branch = '0.1.x',
 	requires = { {'nvim-lua/plenary.nvim'} }
-  })
-  use({
+  };
+  {
 	'oxfist/night-owl.nvim',
 	as = 'night-owl',
 	config = function()
 		vim.cmd('colorscheme night-owl')
 	end
-  })
-  use({ 'nvim-treesitter/nvim-treesitter', {run = ":TSUpdate"}})
-  use 'nvim-treesitter/playground'
-  use 'theprimeagen/harpoon'
-  use 'mbbill/undotree'
-  use 'tpope/vim-fugitive'
-end)
+  };
+  { 'nvim-treesitter/nvim-treesitter', {run = ":TSUpdate"}};
+  'theprimeagen/harpoon';
+  'mbbill/undotree';
+  'tpope/vim-fugitive';
+  'nvim-treesitter/playground';
+
+  -- My plugins here
+  -- 'foo1/bar1.nvim';
+  -- 'foo2/bar2.nvim';
+}
