@@ -1,3 +1,3 @@
 print("Hello lua")
-require('kotharig')
-require('config.lazy')
+require("kotharig")
+require("config.lazy")
