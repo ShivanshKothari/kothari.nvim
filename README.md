@@ -14,5 +14,15 @@ This is my neovim config after many improvements. The latest improvements includ
 - Neotree (File explorer)
 - Comment.nvim (Takes the load off commenting different languages in a flash)
 
+### Cloning and contributing
+Feel free to make this config your own. Also, any contributions or improvements are welcome given they suit my taste. 
+1. Go to the parent of your neovim config directory
+2. Delete after backing up your previous `/nvim` config folder (if you have one previously)
+3. Clone this repository
+```
+git clone https://github.com/ShivanshKothari/kothari.nvim nvim
+```
+4. Run neovim by running command `nvim`
+
 ### Future improvements
 - Adding solution for accessing hidden files and folders especially those following Next.js convention such as route groups
