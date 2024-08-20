@@ -9,21 +9,25 @@ return  {
   },
   config = function()
     require("neo-tree").setup({
-      filesystem = {
-        filetered_items = {
-          visible = true,
-          hide_dotfiles = false,
-          show_hiddent_count = true,
-          hide_by_name = {
-            -- '.git',
-            -- '.DS_Store',
-            -- 'thumbs.db',
-          },
-          never_show = {}
-        },
-      },
-    })
-    vim.keymap.set('n', '<leader>e', ':Neotree filesystem reveal right<CR>')
+  filesystem = {
+    filtered_items = {
+      hide_dotfiles = false,  -- Show hidden files
+      hide_gitignored = false, -- Show git-ignored files (optional)
+    },
+    follow_current_file = true,
+    use_libuv_file_watcher = true,  -- This helps track file changes
+  },
+  event_handlers = {
+    {
+      event = "neo_tree_buffer_enter",
+      handler = function()
+        -- Escaping special characters for route folders
+        vim.cmd("silent! %s/\\([()]/\\\\&/g")
+      end,
+    },
+  },
+})
+   vim.keymap.set('n', '<leader>e', ':Neotree filesystem reveal right<CR>')
     vim.keymap.set('n', '<leader>E', ':Neotree filesystem close<CR>')
   end
 }
