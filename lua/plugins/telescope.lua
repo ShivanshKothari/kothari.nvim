@@ -5,23 +5,23 @@ return  {
     dependencies = { 'nvim-lua/plenary.nvim' },
     config = function()
       local builtin = require('telescope.builtin')
-      vim.keymap.set('n', '<leader>pf', builtin.find_files, {})
+      vim.keymap.set('n', '<C-p>', builtin.find_files, {})
       vim.keymap.set('n', '<leader>pv', builtin.live_grep, {})
-      vim.keymap.set('n', '<C-p>', builtin.git_files, {})
+      vim.keymap.set('n', '<leader>pf', builtin.git_files, {})
 
-      require("telescope").setup{
-        defaults={
-          vimgrep_arguments = {
-            'fd', '--type', 'f', '--hidden', '--follow', '--exclude', '.git'
-          },
-          -- other Telescope settings
+      require('telescope').setup({
+      defaults = {
+        vimgrep_arguments = {
+          'fd', '--type', 'f', '--hidden', '--follow', '--exclude', '.git'
         },
-        pickers = {
-          find_files = {
-            hidden = true,  -- Show hidden files, like route group folders
-          },
+      },
+      pickers = {
+        find_files = {
+          hidden = true,
+          find_command = { 'fd', '--type', 'f', '--hidden', '--no-ignore', '--exclude', '.git', '--exclude', 'node_modules' },
         },
-      }
+      },
+    })
 
     end
   },
